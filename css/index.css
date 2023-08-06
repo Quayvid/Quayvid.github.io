@@ -11,9 +11,6 @@ html, body{
 	width: 200px;
 	height: 60px;
 	margin: 20px auto 30px auto;
-}
-
-.homeLink {
 	color: #4e484a;
 }
 
@@ -87,6 +84,43 @@ a {
 	color: white;
 }
 
+.dropbtn {
+	font-size: inherit;  
+	border: none;
+	outline: none;
+	color: white;
+	padding: 15px;
+	background-color: inherit;
+	font-family: inherit;
+}
+
+.dropdown {
+	position: relative;
+	display: inline-block;
+}
+
+.dropdown-content{
+	display: none;
+	position: absolute;
+	background-color: #4e484a;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	z-index: 1;
+}
+
+.dropdown-content a:hover{
+	background-color: #787073;
+	color: white;
+}
+
+.dropdown:hover .dropdown-content {
+	display:block;
+}
+
+.dropdown:hover {
+	background-color: #787073;
+}
+
 @media all and (max-width: 800px) {
 	.container {
 		flex-direction: column;
@@ -95,7 +129,6 @@ a {
 	.container a {
 		width: 100%
 	}
-	
 	
 	p {
 		text-align: left;
