@@ -1,0 +1,69 @@
+<html>
+<html lang = "en">
+<head>
+    <meta charset = "UTF-8">
+    <meta name = "viewport" content = "width-device-width, initial-scale = 1.0">
+    <meta http-equiv="X-UA-Compatible" content = "ie-edge">
+    <link href = "css/clock.css" rel = "stylesheet">
+    <link href = "css/attributes.css" rel = "stylesheet">
+    <script defer src = "js/clock.js"></script>
+    <title>Clock</title>
+</head>
+
+<!--HTML body code where the contents of the page are contained-->
+<body>
+
+	<!--Title that appears on every page (my name)-->
+	<h1><a class = "homeLink" href = "index.html">David Kim</a></h1>
+
+	<ul class="container">
+		<!--Section of code that contains the page menu-->
+		<li><a href="index.html">Home</a></li>
+		<li><a href="about_me.html">About Me</a></li>
+		
+		<!--Dropdown menu of my projects-->
+		<div class = "dropdown">
+			<div class = "dropdown">
+				<button class = "dropbtn">
+					Projects
+				</button>
+				<div class = "dropdown-content">
+					<a href="calculator.html">Simple Calculator</a>
+                    <a class = "active" href="clock.html">Simple Clock</a>
+				</div>
+			</div>
+		</div>
+		
+		<li><a href="https://github.com/Quayvid"><img src="images/github.png" alt = "github" class = "github"></a></li>
+		<li><a href="https://www.linkedin.com/in/david-kim-768864282/"><img src = "images/linkedin.png" alt = "linkedin" class = "linkedin"></a></li>
+	</ul>
+
+    <div class = "clock">
+        <!--Classes for the clock hands-->
+        <div class = "hand hour" data-hour-hand></div>
+        <div class = "hand minute" data-minute-hand></div>
+        <div class = "hand second" data-second-hand></div>
+
+        <!--Classes for the clock numbers-->
+        <div class = "num no1">1</div>
+        <div class = "num no2">2</div>
+        <div class = "num no3">3</div>
+        <div class = "num no4">4</div>
+        <div class = "num no5">5</div>
+        <div class = "num no6">6</div>
+        <div class = "num no7">7</div>
+        <div class = "num no8">8</div>
+        <div class = "num no9">9</div>
+        <div class = "num no10">10</div>
+        <div class = "num no11">11</div>
+        <div class = "num no12">12</div>
+    </div>
+
+	<!--Section of code that shows my contact information at the bottom-->
+	<div class = "contact">
+		<p><center>Contact Info<br>dkim64100@gmail.com | 250-640-0521</center></p>
+	</div>
+
+</body>
+
+</html>
