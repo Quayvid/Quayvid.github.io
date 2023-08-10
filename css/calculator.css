@@ -1,6 +1,6 @@
 body {
     /*background: linear-gradient(to right, #00AAFF, #00FF6C);*/
-    background: linear-gradient(to right, #C83314, #E9A215);
+    /*background: linear-gradient(to right, #C83314, #E9A215);*/
 }
 
 .calculator-grid {
@@ -16,7 +16,7 @@ body {
 .calculator-grid > button {
     cursor: pointer;
     font-size: 2rem;
-    border: 1px solid white;
+    border: 1px solid black;
     outline: none;
     background-color: rgba(255, 255, 255, .75);
 }
