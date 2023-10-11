@@ -9,9 +9,22 @@ html, body{
 	padding-top: 10px;
 }
 
+.projects_column {
+	float: left;
+	width: 33.33%;
+	font-size: 12px;
+}
+
+.class_column {
+	float: left;
+	width: 33.33%;
+	font-size: 12px;
+}
+
 .column {
 	float: left;
 	width: 33.33%;
+	font-size: 12px;
 }
 
 .column.li {
