@@ -8,7 +8,12 @@
 	<link href="css/attributes.css" type="text/css" rel="stylesheet">
     <link href="css/chess.css" type="text/css" rel="stylesheet">
 
-    <title>Snake</title>
+	<!--script src = "text/javascript">if (!window.console) console = {log: function() {}};</script-->
+	<script src = "js/chess/jquery-3.7.1.min.js"></script>
+	<script src = "js/chess/defs.js"></script>
+	<script src = "js/chess/main.js"></script>
+
+    <title>Chess</title>
 </head>
 
 <body>
@@ -38,6 +43,13 @@
 		<li><a href="https://github.com/Quayvid"><img src="images/github.png" alt = "github" class = "github"></a></li>
 		<li><a href="https://www.linkedin.com/in/david-kim-768864282/"><img src = "images/linkedin.png" alt = "linkedin" class = "linkedin"></a></li>
 	</ul>
+
+
+	<div id="fen_in_div">
+		Fen:<br>
+		<input type="text" id="fen_in">
+		<button type="button" id="set_fen">Set position</button>
+	</div>
 
 
 	<!--Section of code that shows my contact information at the bottom-->
