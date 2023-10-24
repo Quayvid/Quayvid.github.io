@@ -13,7 +13,7 @@ var RANKS = {RANK_1: 0, RANK_2: 1, RANK_3: 2, RANK_4: 3, RANK_5: 4,
     RANK_6: 5, RANK_7: 6, RANK_8: 7, RANK_NONE: 8}
 
 // Represents the colors of the pieces
-var COLORS = {WHITE: 0, BLACK: 0, BOTH: 2}
+var COLORS = {WHITE: 0, BLACK: 1, BOTH: 2}
 
 var CASTLE_BIT = {WKCA: 1, WQCA: 2, BKCA: 4, BQCA: 8}
 
@@ -77,6 +77,10 @@ function sq_64(sq120) {
 
 function sq_120(sq64) {
     return sq_64_to_sq_120[(sq64)]
+}
+
+function piece_index(piece, piece_num) {
+    return (piece * 10 + piece_num)
 }
 
 

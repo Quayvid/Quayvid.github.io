@@ -25,9 +25,7 @@ function init_files_ranks_board() {
         }
     }
 
-    console.log("files_board[0]: " + files_board[0] + " ranks_board[0]: " + ranks_board[0])
-    console.log("files_board[SQUARES.A1]: " + files_board[SQUARES.A1] + " ranks_board[SQUARES.A1]: " + ranks_board[SQUARES.A1])
-    console.log("files_board[SQUARES.E8]: " + files_board[SQUARES.E8] + " ranks_board[SQUARES.E8]: " + ranks_board[SQUARES.E8])
+    
 }
 
 function init_hash_keys() {
@@ -72,4 +70,5 @@ function init() {
     console.log("init() called")
     init_files_ranks_board()
     init_hash_keys()
+    init_sq_120_to_64()
 }

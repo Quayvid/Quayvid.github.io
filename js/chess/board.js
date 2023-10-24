@@ -60,11 +60,8 @@ function generate_pos_key() {
         piece = game_board.pieces[sq]
         if (piece != PIECES.EMPTY && piece != SQUARES.OFF_BOARD) {
             final_key ^= piece_keys[(piece * 120) + sq]
-            console.log("test 2: " + final_key)
         }
     }
-
-    console.log("test 1: " + final_key)
 
     if (game_board.side == COLORS.WHITE) {
         final_key ^= side_key
@@ -79,16 +76,19 @@ function generate_pos_key() {
     return final_key
 }
 
-function reset_board() {
-    var index = 0;
+function print_piece_lists() {
+    var piece, piece_number
 
-    for (index = 0; index < BOARD_SQ_NUM; ++index) {
-        game_board.pieces[index] = SQUARES.OFF_BOARD
+    for(piece = PIECES.wP; piece <= PIECES.bK; ++piece) {
+        for(piece_number = 0; piece_number < game_board.piece_num[piece]; ++piece_number) {
+           console.log('Piece ' + piece_char[piece] + ' on ' + print_sq(game_board.p_list[piece_index(piece, piece_number)]))
+           //console.log('Piece ' + piece_char[piece] + ' on ' + game_board.p_list[piece_index(piece, piece_number)])
+        }
     }
+}
 
-    for (index = 0; index < 64; ++index) {
-        game_board.pieces[sq_120(index)] = PIECES.EMPTY
-    }
+function update_lists_material() {
+    var piece, sq, index, color
 
     for (index = 0; index < 14 * 120; ++index) {
         game_board.p_list[index] = PIECES.EMPTY
@@ -100,6 +100,34 @@ function reset_board() {
 
     for (index = 0; index < 13; ++index) {
         game_board.piece_num[index] = 0
+    }
+
+    for(index = 0; index < 64; ++index) {
+        sq = sq_120(index)
+        piece = game_board.pieces[sq]
+        if (piece != PIECES.EMPTY) {
+            //console.log(' piece ' + piece + ' on ' + sq)
+            color = piece_col[piece]
+
+            game_board.material[color] += piece_val[piece]
+
+            game_board.p_list[piece_index(piece, game_board.piece_num[piece])] = sq
+            game_board.piece_num[piece]++
+        }
+    }
+
+    print_piece_lists()
+}
+
+function reset_board() {
+    var index = 0;
+
+    for (index = 0; index < BOARD_SQ_NUM; ++index) {
+        game_board.pieces[index] = SQUARES.OFF_BOARD
+    }
+
+    for (index = 0; index < 64; ++index) {
+        game_board.pieces[sq_120(index)] = PIECES.EMPTY
     }
 
     game_board.side = COLORS.BOTH
@@ -198,7 +226,5 @@ function parse_fen(fen) {
     }
 
     game_board.position_key = generate_pos_key()
-    console.log("nuts")
-    console.log(game_board.position_key)
-    console.log(rank)
+    update_lists_material()
 }
