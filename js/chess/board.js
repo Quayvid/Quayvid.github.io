@@ -227,4 +227,70 @@ function parse_fen(fen) {
 
     game_board.position_key = generate_pos_key()
     update_lists_material()
+    //square_attacked(21, 0)
+}
+
+function square_attacked(sq, side) {
+    var piece
+    var t_square
+    var index
+    var dir
+
+    if (side == COLORS.WHITE) {
+        if (game_board.pieces[sq - 11] == PIECES.wP || game_board.pieces[sq - 9] == PIECES.wP) {
+            return true
+        }
+    } else {
+        if (game_board.pieces[sq + 11] == PIECES.bP || game_board.pieces[sq + 9] == PIECES.bP) {
+            return true
+        }
+    }
+
+    for (index = 0; index < 8; index++) {
+        piece = game_board.pieces[sq + knight_direction[index]]
+        if (piece != SQUARES.OFF_BOARD && piece_col[piece] == side && piece_knight[piece] == true) {
+            return true
+        }
+    }
+
+    for (index = 0; index < 4; ++index) {
+        dir = rook_direction[index]
+        t_square = sq + dir
+        piece = game_board.pieces[t_square]
+        while (piece != SQUARES.OFF_BOARD) {
+            if (piece != PIECES.EMPTY) {
+                if (piece_rook_queen[piece] == true && piece_col[piece] == side) {
+                    return true
+                }
+                break
+            }
+            t_square += dir
+            piece = game_board.pieces[t_square]
+        }
+    }
+
+    for (index = 0; index < 4; ++index) {
+        dir = bishop_direction[index]
+        t_square = sq + dir
+        piece = game_board.pieces[t_square]
+        while (piece != SQUARES.OFF_BOARD) {
+            if (piece != PIECES.EMPTY) {
+                if (piece_bishop_queen[piece] == true && piece_col[piece] == side) {
+                    return true
+                }
+                break
+            }
+            t_square += dir
+            piece = game_board.pieces[t_square]
+        }
+    }
+
+    for (index = 0; index < 8; index++) {
+        piece = game_board.pieces[sq + king_direction[index]]
+        if (piece != SQUARES.OFF_BOARD && piece_col[piece] == side && piece_king[piece] == true) {
+            return true
+        }
+    }
+
+    return false
 }

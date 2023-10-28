@@ -59,6 +59,11 @@ var piece_rook_queen = [false, false, false, false, true, true, false, false, fa
 var piece_bishop_queen = [false, false, false, true, false, true, false, false, false, true, false, true, false]
 var piece_slides = [false, false, false, true, true, true, false, false, false, true, true, true, false]
 
+var knight_direction = [-8, -19, -21, -12, 8, 19, 21, 12]
+var rook_direction = [-1, -10, 1, 10]
+var bishop_direction = [-9, -11, 11, 9]
+var king_direction = [-1, -10, 1, 10, -9, -11, 11, 9]
+
 var piece_keys = new Array(14 * 120)
 var side_key
 var castle_keys = new Array(16)
