@@ -227,7 +227,29 @@ function parse_fen(fen) {
 
     game_board.position_key = generate_pos_key()
     update_lists_material()
+    print_square_attacked()
     //square_attacked(21, 0)
+}
+
+function print_square_attacked() {
+    var sq, file, rank, piece
+
+    console.log("\nAttacked:\n")
+
+    for(rank = RANKS.RANK_8; rank >= RANKS.RANK_1; rank--) {
+        var line = ((rank + 1) + "  ")
+        for(file = FILES.FILE_A; file <= FILES.FILE_H; file++) {
+            sq = FR2SQ(file, rank)
+            if (square_attacked(sq, game_board.side) == true) {
+                piece = "X"
+            } else {
+                piece = "-"
+            }
+            line += (" " + piece + " ")
+        }
+        console.log(line)
+    }
+    console.log("")
 }
 
 function square_attacked(sq, side) {

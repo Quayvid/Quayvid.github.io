@@ -29,6 +29,15 @@ var MAX_GAME_MOVES = 2048
 var MAX_POSITION_MOVES = 256
 var MAX_DEPTH = 64
 
+var M_FLAG_EP = 0x40000
+var M_FLAG_PS = 0x80000
+var M_FLAG_CA = 0x100000
+
+var M_FLAG_CAP = 0x7C000
+var M_FLAG_PROM = 0xF00000
+
+var NO_MOVE = 0
+
 // files_board and ranks_boards are array-representations of the game board's 
 // columns and rows, respectively
 var files_board = new Array(BOARD_SQ_NUM)
@@ -40,10 +49,6 @@ var piece_char = ".PNBRQKpnbrqk"
 var side_char = "wb-"
 var rank_char = "12345678"
 var file_char = "abcdefgh"
-
-function FR2SQ(f, r) {
-    return ((21 + (f)) + ((r) * 10))
-}
 
 var piece_big = [false, false, true, true, true, true, true, false, true, true, true, true, true]
 var piece_maj = [false, false, false, false, true, true, true, false, false, false, true, true, true]
@@ -71,6 +76,10 @@ var castle_keys = new Array(16)
 var sq_120_to_sq_64 = new Array(BOARD_SQ_NUM)
 var sq_64_to_sq_120 = new Array(64)
 
+function FR2SQ(f, r) {
+    return ((21 + (f)) + ((r) * 10))
+}
+
 function rand_32() {
     return (Math.floor((Math.random() * 255) + 1) << 23) | (Math.floor((Math.random() * 255) + 1) << 16)
         | (Math.floor((Math.random() * 255) + 1) << 8) | Math.floor((Math.random() * 255) + 1);
@@ -87,6 +96,25 @@ function sq_120(sq64) {
 function piece_index(piece, piece_num) {
     return (piece * 10 + piece_num)
 }
+
+
+function from_square(m) {
+    return (m & 0x7F)
+}
+
+function to_square(m) {
+    return ((m >> 7) & 0x7F)
+}
+
+function captured(m) {
+    return ((m >> 14) & 0xF)
+}
+
+function promoted(m) {
+    return ((m >> 20) & 0xF)
+}
+
+
 
 
 
