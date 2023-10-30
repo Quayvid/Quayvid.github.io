@@ -8,6 +8,11 @@ function generate_moves() {
     var piece_type
     var piece_num
     var square
+    var pce_index
+    var piece
+    var t_square
+    var direction
+    var index
 
     if (game_board.side == COLORS.WHITE) {
         piece_type = PIECES.wP
@@ -22,11 +27,11 @@ function generate_moves() {
                 }
             }
 
-            if (SQUARES.OFF_BOARD(square + 9) == false && piece_col[game_board.pieces[square + 9]] == COLORS.BLACK) {
+            if (square_off_board(square + 9) == false && piece_col[game_board.pieces[square + 9]] == COLORS.BLACK) {
                 // Add pawn cap move
             }
 
-            if (SQUARES.OFF_BOARD(square + 11) == false && piece_col[game_board.pieces[square + 11]] == COLORS.BLACK) {
+            if (square_off_board(square + 11) == false && piece_col[game_board.pieces[square + 11]] == COLORS.BLACK) {
                 // Add pawn cap move
             }
 
@@ -58,7 +63,7 @@ function generate_moves() {
             }
         }
 
-        piece_type = PIECES.wN
+        //piece_type = PIECES.wN
     } else {
         piece_type = PIECES.bP
 
@@ -72,11 +77,11 @@ function generate_moves() {
                 }
             }
 
-            if (SQUARES.OFF_BOARD(square - 9) == false && piece_col[game_board.pieces[square - 9]] == COLORS.WHITE) {
+            if (square_off_board(square - 9) == false && piece_col[game_board.pieces[square - 9]] == COLORS.WHITE) {
                 // Add pawn cap move
             }
 
-            if (SQUARES.OFF_BOARD(square - 11) == false && piece_col[game_board.pieces[square - 11]] == COLORS.WHITE) {
+            if (square_off_board(square - 11) == false && piece_col[game_board.pieces[square - 11]] == COLORS.WHITE) {
                 // Add pawn cap move
             }
 
@@ -108,6 +113,33 @@ function generate_moves() {
             }
         }
 
-        piece_type = PIECES.bN
+        //piece_type = PIECES.bN
+    }
+
+    pce_index = loop_non_slide_index[game_board.side]
+    piece = loop_non_slide_piece[pce_index++]
+
+    while (piece != 0) {
+        for (piece_num = 0; piece_num < game_board.piece_num[piece]; ++piece_num) {
+            square=  game_board.p_list[piece_index(piece, piece_num)]
+
+            for (index = 0; index < direction_num[piece]; index++) {
+                direction = piece_direction[piece][index]
+                t_square = square + direction
+
+                if (square_off_board(t_square) == true) {
+                    continue
+                }
+
+                if (game_board.pieces[t_square] != PIECES.EMPTY) {
+                    if (piece_col[game_board.piece[t_square]] != game_board.side) {
+                        // Add capture
+                    }
+                } else {
+                    // Quiet here
+                }
+            }
+        }
+        piece = loop_non_slide_piece[pce_index++]
     }
 }

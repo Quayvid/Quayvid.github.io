@@ -69,6 +69,12 @@ var rook_direction = [-1, -10, 1, 10]
 var bishop_direction = [-9, -11, 11, 9]
 var king_direction = [-1, -10, 1, 10, -9, -11, 11, 9]
 
+var direction_num = [0, 0, 8, 4, 4, 8, 8, 0, 8, 4, 4, 8, 8]
+var piece_direction = [0, 0, knight_direction, bishop_direction, rook_direction, king_direction, king_direction, 0, 
+    knight_direction, bishop_direction, rook_direction, king_direction, king_direction]
+var loop_non_slide_piece = [PIECES.wN, PIECES.wK, 0, PIECES.bN, PIECES.bK]
+var loop_non_slide_index = [0, 3]
+
 var piece_keys = new Array(14 * 120)
 var side_key
 var castle_keys = new Array(16)
@@ -112,6 +118,13 @@ function captured(m) {
 
 function promoted(m) {
     return ((m >> 20) & 0xF)
+}
+
+function square_off_board(sq) {
+    if (files_board[sq] == SQUARES.OFF_BOARD) {
+        return true
+    }
+    return false
 }
 
 
