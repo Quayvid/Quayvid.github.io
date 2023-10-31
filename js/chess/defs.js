@@ -43,7 +43,7 @@ var NO_MOVE = 0
 var files_board = new Array(BOARD_SQ_NUM)
 var ranks_board = new Array(BOARD_SQ_NUM)
 
-var START_FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
+var START_FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR b KQkq - 0 1"
 
 var piece_char = ".PNBRQKpnbrqk"
 var side_char = "wb-"
@@ -72,7 +72,7 @@ var king_direction = [-1, -10, 1, 10, -9, -11, 11, 9]
 var direction_num = [0, 0, 8, 4, 4, 8, 8, 0, 8, 4, 4, 8, 8]
 var piece_direction = [0, 0, knight_direction, bishop_direction, rook_direction, king_direction, king_direction, 0, 
     knight_direction, bishop_direction, rook_direction, king_direction, king_direction]
-var loop_non_slide_piece = [PIECES.wN, PIECES.wK, 0, PIECES.bN, PIECES.bK]
+var loop_non_slide_piece = [PIECES.wN, PIECES.wK, 0, PIECES.bN, PIECES.bK, 0]
 var loop_non_slide_index = [0, 3]
 var loop_slide_piece = [PIECES.wB, PIECES.wR, PIECES.wQ, 0, PIECES.bB, PIECES.bR, PIECES.bQ, 0]
 var loop_slide_index = [0, 4]

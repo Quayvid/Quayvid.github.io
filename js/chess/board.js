@@ -204,6 +204,8 @@ function parse_fen(fen) {
     game_board.side  =(fen[fen_count] == 'w') ? COLORS.WHITE : COLORS.BLACK
     fen_count += 2
 
+    //console.log(game_board.side)
+
     for (i = 0; i < 4; i++) {
         if (fen[fen_count] == ' ') {
             break
@@ -240,7 +242,7 @@ function print_square_attacked() {
         var line = ((rank + 1) + "  ")
         for(file = FILES.FILE_A; file <= FILES.FILE_H; file++) {
             sq = FR2SQ(file, rank)
-            if (square_attacked(sq, game_board.side) == true) {
+            if (square_attacked(sq, game_board.side^1) == true) {
                 piece = "X"
             } else {
                 piece = "-"

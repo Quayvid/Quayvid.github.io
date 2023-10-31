@@ -68,7 +68,7 @@ function generate_moves() {
     var piece_num
     var square
     var pce_index
-    var piece
+    var piece_test
     var t_square
     var direction
     var index
@@ -122,28 +122,27 @@ function generate_moves() {
             }
         }
 
-        //piece_type = PIECES.wN
     } else {
         piece_type = PIECES.bP
-
-        for (piece_num = 0; piece_num < game_board.piece_num[piece_type]; ++piece_type) {
+        
+        for (piece_num = 0; piece_num < game_board.piece_num[piece_type]; ++piece_num) {
             square = game_board.p_list[piece_index(piece_type, piece_num)]
-
+            
             if (game_board.pieces[square - 10] == PIECES.EMPTY) {
                 add_black_pawn_quiet_move(square, square - 10)
                 if (ranks_board[square] == RANKS.RANK_7 && game_board.pieces[square - 20] == PIECES.EMPTY) {
                     add_quiet_move(MOVE(square, square - 20, PIECES.EMPTY, PIECES.EMPTY, M_FLAG_PS))
                 }
             }
-
+            
             if (square_off_board(square - 9) == false && piece_col[game_board.pieces[square - 9]] == COLORS.WHITE) {
                 add_black_pawn_capture_move(square, square - 9, game_board.pieces[square - 9])
             }
-
+            
             if (square_off_board(square - 11) == false && piece_col[game_board.pieces[square - 11]] == COLORS.WHITE) {
                 add_black_pawn_capture_move(square, square - 11, game_board.pieces[square - 11])
             }
-
+            
             if (game_board.en_pas != SQUARES.NO_SQ) {
                 if (square - 9 == game_board.en_pas) {
                     add_en_passant_move(MOVE(square, square - 9, PIECES.EMPTY, PIECES.EMPTY, M_FLAG_EP))
@@ -155,6 +154,7 @@ function generate_moves() {
             }
         }
 
+        
         if (game_board.castle_perm & CASTLE_BIT.BKCA) {
             if (game_board.pieces[SQUARES.F8] == PIECES.EMPTY && game_board.pieces[SQUARES.G8] == PIECES.EMPTY) {
                 if (square_attacked(SQUARES.F8, COLORS.WHITE) == false && square_attacked(SQUARES.E8, COLORS.WHITE) == false) {
@@ -162,28 +162,25 @@ function generate_moves() {
                 }
             }
         }
-
+        
         if (game_board.castle_perm & CASTLE_BIT.BQCA) {
-            if (game_board.pieces[SQUARES.D8] == PIECES.EMPTY && game_board.pieces[SQUARES.C8] == PIECES.EMPTY
-                && game_board.pieces[SQUARES.B8] == PIECES.EMPTY) {
+            if (game_board.pieces[SQUARES.D8] == PIECES.EMPTY && game_board.pieces[SQUARES.C8] == PIECES.EMPTY && game_board.pieces[SQUARES.B8] == PIECES.EMPTY) {
                 if (square_attacked(SQUARES.D8, COLORS.WHITE) == false && square_attacked(SQUARES.E8, COLORS.WHITE) == false) {
                     add_quiet_move(MOVE(SQUARES.E8, SQUARES.C8, PIECES.EMPTY, PIECES.EMPTY, M_FLAG_CA))
                 }
             }
         }
-
-        //piece_type = PIECES.bN
     }
-
+    
     pce_index = loop_non_slide_index[game_board.side]
-    piece = loop_non_slide_piece[pce_index++]
+    piece_test = loop_non_slide_piece[pce_index++]
+    
+    while (piece_test != 0) {
+        for (piece_num = 0; piece_num < game_board.piece_num[piece_test]; ++piece_num) {
+            square = game_board.p_list[piece_index(piece_test, piece_num)]
 
-    while (piece != 0) {
-        for (piece_num = 0; piece_num < game_board.piece_num[piece]; ++piece_num) {
-            square=  game_board.p_list[piece_index(piece, piece_num)]
-
-            for (index = 0; index < direction_num[piece]; index++) {
-                direction = piece_direction[piece][index]
+            for (index = 0; index < direction_num[piece_test]; index++) {
+                direction = piece_direction[piece_test][index]
                 t_square = square + direction
 
                 if (square_off_board(t_square) == true) {
@@ -199,15 +196,17 @@ function generate_moves() {
                 }
             }
         }
-        piece = loop_non_slide_piece[pce_index++]
+        piece_test = loop_non_slide_piece[pce_index++]
+        
     }
-
+    
+    
     pce_index = loop_slide_index[game_board.side]
     piece = loop_slide_piece[pce_index++]
-
+    
     while (piece != 0) {
         for (piece_num = 0; piece_num < game_board.piece_num[piece]; ++piece_num) {
-            square=  game_board.p_list[piece_index(piece, piece_num)]
+            square = game_board.p_list[piece_index(piece, piece_num)]
 
             for (index = 0; index < direction_num[piece]; index++) {
                 direction = piece_direction[piece][index]
@@ -227,5 +226,4 @@ function generate_moves() {
         }
         piece = loop_slide_piece[pce_index++]
     }
-
 }
