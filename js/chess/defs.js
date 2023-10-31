@@ -74,6 +74,9 @@ var piece_direction = [0, 0, knight_direction, bishop_direction, rook_direction,
     knight_direction, bishop_direction, rook_direction, king_direction, king_direction]
 var loop_non_slide_piece = [PIECES.wN, PIECES.wK, 0, PIECES.bN, PIECES.bK]
 var loop_non_slide_index = [0, 3]
+var loop_slide_piece = [PIECES.wB, PIECES.wR, PIECES.wQ, 0, PIECES.bB, PIECES.bR, PIECES.bQ, 0]
+var loop_slide_index = [0, 4]
+
 
 var piece_keys = new Array(14 * 120)
 var side_key

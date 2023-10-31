@@ -5,6 +5,7 @@ $(function() {
     parse_fen(START_FEN)
     print_board()
     generate_moves()
+    print_move_list()
 });
 
 function init_files_ranks_board() {
