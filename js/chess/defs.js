@@ -130,6 +130,21 @@ function square_off_board(sq) {
     return false
 }
 
+function hash_piece(piece, square) {
+    game_board.position_key ^= piece_keys[(piece * 120) + square]
+}
+
+function hash_ca() {
+    game_board.position_key ^= castle_keys[(game_board.castle_perm)]
+}
+
+function hash_side() {
+    game_board.position_key ^= side_key
+}
+
+function hash_ep() {
+    game_board.position_key ^= piece_keys[game_board.en_pas]
+}
 
 
 
