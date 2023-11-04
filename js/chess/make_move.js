@@ -49,3 +49,7 @@ function move_piece(from, to) {
         }
     }
 }
+
+function make_move (move) {
+
+}

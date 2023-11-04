@@ -4,6 +4,7 @@ game_board.pieces = new Array(BOARD_SQ_NUM)
 game_board.side = COLORS.WHITE
 game_board.fifty_move = 0
 game_board.his_play = 0
+game_board.history = []
 game_board.play = 0
 game_board.en_pas = 0
 game_board.castle_perm = 0
@@ -15,6 +16,56 @@ game_board.position_key = 0
 game_board.move_list = new Array(MAX_DEPTH * MAX_POSITION_MOVES)
 game_board.move_scores = new Array(MAX_DEPTH * MAX_POSITION_MOVES)
 game_board.move_list_start = new Array(MAX_DEPTH)
+
+function check_board() {
+    var t_piece_num = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    var t_material = [0, 0]
+
+    var square_64, t_piece, t_piece_num_2, square_120, color, p_count
+
+    for (t_piece = PIECES.wP; t_piece <= PIECES.bK; ++t_piece) {
+        for(t_piece_num_2 = 0; t_piece_num_2 < game_board.piece_num[t_piece]; ++t_piece_num_2) {
+            square_120 = game_board.p_list[piece_index(t_piece, t_piece_num_2)]
+            if (game_board.pieces[square_120] != t_piece) {
+                console.log("Error Piece Lists")
+                return false
+            }
+        }
+    }
+
+    for(square_64 = 0; square_64 < 64; ++square_64) {
+        square_120 = sq_120(square_64)
+        t_piece = game_board.pieces[square_120]
+        t_piece_num[t_piece]++
+        t_material[piece_col[t_piece]] += piece_val[t_piece]
+    }
+   
+    for (t_piece = PIECES.wP; t_piece <= PIECES.bK; ++t_piece) {
+        if (t_piece_num[t_piece] != game_board.piece_num[t_piece]) {
+            console.log("Error t_piece_num")
+            return false
+        }
+    }
+
+    if (t_material[COLORS.WHITE] != game_board.material[COLORS.WHITE] || 
+    t_material[COLORS.BLACK] != game_board.material[COLORS.BLACK]) {
+        console.log("Error t_material")
+        return false
+    }
+
+    if (game_board.side != COLORS.WHITE && game_board.side != COLORS.BLACK) {
+        console.log("Error game_board.side")
+        return false
+    }
+
+    if (generate_pos_key() != game_board.position_key) {
+        console.log("Error game_board.position_key")
+        return false
+    }
+
+    console.log("nuts")
+    return true
+}
 
 function print_board() {
     var sq, file, rank, piece

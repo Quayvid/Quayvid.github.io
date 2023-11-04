@@ -6,6 +6,8 @@ $(function() {
     print_board()
     generate_moves()
     print_move_list()
+    print_piece_lists()
+    check_board()
 });
 
 function init_files_ranks_board() {
@@ -68,9 +70,23 @@ function init_sq_120_to_64() {
     }
 }
 
+function init_board_variables() {
+    var index = 0
+    for (index = 0; index < MAX_GAME_MOVES; ++index) {
+        game_board.history.push({
+            move : NO_MOVE,
+            castle_perm: 0,
+            en_pas: 0,
+            fifty_move: 0,
+            position_key: 0
+        })
+    }
+}
+
 function init() {
     console.log("init() called")
     init_files_ranks_board()
     init_hash_keys()
     init_sq_120_to_64()
+    init_board_variables()
 }
