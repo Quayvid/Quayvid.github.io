@@ -63,7 +63,6 @@ function check_board() {
         return false
     }
 
-    console.log("nuts")
     return true
 }
 

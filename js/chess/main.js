@@ -8,6 +8,14 @@ $(function() {
     print_move_list()
     print_piece_lists()
     check_board()
+
+    make_move(game_board.move_list[0])
+    print_board()
+    check_board()
+
+    take_move()
+    print_board()
+    check_board()
 });
 
 function init_files_ranks_board() {
