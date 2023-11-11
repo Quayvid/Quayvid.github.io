@@ -33,7 +33,6 @@ function perft_test(depth) {
     var move_num = 0
     generate_moves()
     for (index = game_board.move_list_start[game_board.play]; index < game_board.move_list_start[game_board.play + 1]; ++index) {
-        console.log("here")
         move = game_board.move_list[index]
         if (make_move(move) == false) {
             continue
@@ -43,10 +42,9 @@ function perft_test(depth) {
         perft(depth - 1)
         take_move()
         var old_nodes = perft_leaf_nodes - cumulative_nodes
-        console.log("Move:" + move_num + " " + print_move(move) + " " + old_nodes)
+        console.log("Move: " + move_num + " " + print_move(move) + " " + old_nodes)
     }
     console.log("Test complete: " + perft_leaf_nodes + " leaf nodes visited")
-    console.log("donezo") 
     return
 
 }

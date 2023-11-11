@@ -68,24 +68,21 @@ function make_move (move) {
         switch(to) {
             case SQUARES.C1:
                 move_piece(SQUARES.A1, SQUARES.D1)
-                break
+            break
             case SQUARES.C8:
                 move_piece(SQUARES.A8, SQUARES.D8)
-                break
+            break
             case SQUARES.G1:
                 move_piece(SQUARES.H1, SQUARES.F1)
-                break
+            break
             case SQUARES.G8:
                 move_piece(SQUARES.H8, SQUARES.F8)
-                break
-            default: 
-                break
+            break
+            default: break
         }
     }
 
-    if (game_board.en_pas != SQUARES.NO_SQ) {
-        hash_ep()
-    }
+    if (game_board.en_pas != SQUARES.NO_SQ) { hash_ep() }
     hash_ca()
     
     game_board.history[game_board.his_play].move = move
@@ -135,7 +132,9 @@ function make_move (move) {
 
     if (square_attacked(game_board.p_list[piece_index(kings[side], 0)], game_board.side)) {
         take_move()
+        //console.log("checking")
         return false
+        
     }
     return true
 
@@ -149,9 +148,7 @@ function take_move() {
     var from = from_square(move)
     var to = to_square(move)
 
-    if (game_board.en_pas != SQUARES.NO_SQ) {
-        hash_ep()
-    }
+    if (game_board.en_pas != SQUARES.NO_SQ) hash_ep();
     hash_ca()
 
     game_board.castle_perm = game_board.history[game_board.his_play].castle_perm
@@ -159,7 +156,7 @@ function take_move() {
     game_board.en_pas = game_board.history[game_board.his_play].en_pas
 
     if (game_board.en_pas != SQUARES.NO_SQ) {
-        hash_ep()
+        hash_ep();
     }
     hash_ca()
 
@@ -172,22 +169,13 @@ function take_move() {
         } else {
             add_piece(to + 10, PIECES.wP)
         }
-    } else if ( (M_FLAG_CA) != 0) {
+    } else if ( (M_FLAG_CA & move) != 0) {
         switch(to) {
-            case SQUARES.C1:
-                move_piece(SQUARES.D1, SQUARES.A1)
-                break
-            case SQUARES.C8:
-                move_piece(SQUARES.D8, SQUARES.A8)
-                break
-            case SQUARES.G1:
-                move_piece(SQUARES.F1, SQUARES.H1)
-                break
-            case SQUARES.G8:
-                move_piece(SQUARES.F8, SQUARES.H8)
-                break
-            default:
-                break
+            case SQUARES.C1: move_piece(SQUARES.D1, SQUARES.A1); break;
+            case SQUARES.C8: move_piece(SQUARES.D8, SQUARES.A8); break;
+            case SQUARES.G1: move_piece(SQUARES.F1, SQUARES.H1); break;
+            case SQUARES.G8: move_piece(SQUARES.F8, SQUARES.H8); break;
+            default: break;
         }
     }
 

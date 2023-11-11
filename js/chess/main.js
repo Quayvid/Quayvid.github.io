@@ -4,7 +4,6 @@ $(function() {
 
     parse_fen(START_FEN)
     print_board()
-    //perft_test(5)
 });
 
 function init_files_ranks_board() {

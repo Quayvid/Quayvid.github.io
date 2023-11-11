@@ -1,5 +1,5 @@
 function MOVE(from, to, capture, promoted, flag) {
-    return (from | (to << 7) | (captured << 14) | (promoted << 20) | flag)
+    return (from | (to << 7) | (capture << 14) | (promoted << 20) | flag)
 }
 
 function add_capture_move(move) {
@@ -114,8 +114,7 @@ function generate_moves() {
         }
 
         if (game_board.castle_perm & CASTLE_BIT.WQCA) {
-            if (game_board.pieces[SQUARES.D1] == PIECES.EMPTY && game_board.pieces[SQUARES.C1] == PIECES.EMPTY
-                && game_board.pieces[SQUARES.B1] == PIECES.EMPTY) {
+            if (game_board.pieces[SQUARES.D1] == PIECES.EMPTY && game_board.pieces[SQUARES.C1] == PIECES.EMPTY && game_board.pieces[SQUARES.B1] == PIECES.EMPTY) {
                 if (square_attacked(SQUARES.D1, COLORS.BLACK) == false && square_attacked(SQUARES.E1, COLORS.BLACK) == false) {
                     add_quiet_move(MOVE(SQUARES.E1, SQUARES.C1, PIECES.EMPTY, PIECES.EMPTY, M_FLAG_CA))
                 }
@@ -197,19 +196,17 @@ function generate_moves() {
             }
         }
         piece_test = loop_non_slide_piece[pce_index++]
-        
     }
     
-    
     pce_index = loop_slide_index[game_board.side]
-    piece = loop_slide_piece[pce_index++]
+    piece_test = loop_slide_piece[pce_index++]
     
-    while (piece != 0) {
-        for (piece_num = 0; piece_num < game_board.piece_num[piece]; ++piece_num) {
-            square = game_board.p_list[piece_index(piece, piece_num)]
+    while (piece_test != 0) {
+        for (piece_num = 0; piece_num < game_board.piece_num[piece_test]; ++piece_num) {
+            square = game_board.p_list[piece_index(piece_test, piece_num)]
 
-            for (index = 0; index < direction_num[piece]; index++) {
-                direction = piece_direction[piece][index]
+            for (index = 0; index < direction_num[piece_test]; index++) {
+                direction = piece_direction[piece_test][index]
                 t_square = square + direction
 
                 while (square_off_board(t_square) == false) {
@@ -224,6 +221,6 @@ function generate_moves() {
                 }
             }
         }
-        piece = loop_slide_piece[pce_index++]
+        piece_test = loop_slide_piece[pce_index++]
     }
 }
