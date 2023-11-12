@@ -28,6 +28,8 @@ var BOOL = {FALSE: 0, TRUE: 1}
 var MAX_GAME_MOVES = 2048
 var MAX_POSITION_MOVES = 256
 var MAX_DEPTH = 64
+var INFINITE = 30000
+var MATE = 29000
 
 var M_FLAG_EP = 0x40000
 var M_FLAG_PS = 0x80000
@@ -101,13 +103,24 @@ var castle_perm = [
     15, 15, 15, 15, 15, 15, 15, 15, 15, 15
 ];
 
+var mirror_64 = [
+    56, 57, 58, 59, 60, 61, 62, 63,
+    48, 49, 50, 51, 52, 53, 54, 55,
+    40, 41, 42, 43, 44, 45, 46, 47,
+    32, 33, 34, 35, 36, 37, 38, 39,
+    24, 25, 26, 27, 28, 29, 30, 31,
+    16, 17, 18, 19, 20, 21, 22, 23,
+    8, 9, 10, 11, 12, 13, 14, 15,
+    0, 1, 2, 3, 4, 5, 6, 7
+]
+
 function FR2SQ(f, r) {
     return ((21 + (f)) + ((r) * 10))
 }
 
 function rand_32() {
     return (Math.floor((Math.random() * 255) + 1) << 23) | (Math.floor((Math.random() * 255) + 1) << 16)
-        | (Math.floor((Math.random() * 255) + 1) << 8) | Math.floor((Math.random() * 255) + 1);
+        | (Math.floor((Math.random() * 255) + 1) << 8) | Math.floor((Math.random() * 255) + 1)
 }
 
 function sq_64(sq120) {
@@ -120,6 +133,10 @@ function sq_120(sq64) {
 
 function piece_index(piece, piece_num) {
     return (piece * 10 + piece_num)
+}
+
+function mirror_64_func(square) {
+    return mirror_64[square]
 }
 
 function from_square(m) {

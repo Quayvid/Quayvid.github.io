@@ -231,7 +231,7 @@ function parse_fen(fen) {
             
             case '/':
             case ' ':
-                rank--;
+                rank--
                 file = FILES.FILE_A
                 fen_count++
                 continue
