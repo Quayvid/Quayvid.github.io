@@ -77,6 +77,13 @@ function init_board_variables() {
             position_key: 0
         })
     }
+
+    for (index = 0; index < PV_ENTRIES; ++index) {
+        game_board.pv_table.push({
+            move: NO_MOVE,
+            position_key: 0
+        })
+    }
 }
 
 function init() {
