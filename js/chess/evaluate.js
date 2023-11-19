@@ -103,20 +103,20 @@ function evaluate_position() {
     piece = PIECES.wQ
     for (piece_num = 0; piece_num < game_board.piece_num[piece]; ++piece_num) {
         square = game_board.p_list[piece_index(piece, piece_num)]
-        score += rook_table[sq_64(square)] / 2
+        score += rook_table[sq_64(square)]
     }
 
     piece = PIECES.bQ
     for (piece_num = 0; piece_num < game_board.piece_num[piece]; ++piece_num) {
         square = game_board.p_list[piece_index(piece, piece_num)]
-        score -= rook_table[mirror_64_func(square)] / 2
+        score -= rook_table[mirror_64_func(square)]
     }
 
-    if (game_board.piece_num[wB] >= 2) {
+    if (game_board.piece_num[PIECES.wB] >= 2) {
         score += bishop_pair
     }
 
-    if (game_board.piece_num[bB] >= 2) {
+    if (game_board.piece_num[PIECES.bB] >= 2) {
         score -= bishop_pair
     }
 

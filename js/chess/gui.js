@@ -3,6 +3,7 @@ $("#set_fen").on("click", function() {
     parse_fen(fen_strings)
     print_board()
     perft_test(5)
+    search_position()
 })
 
 // rnbqkb1r/pppp1ppp/8/4P3/6n1/7P/PPPNPPP1/R1BQKBNR b KQkq -

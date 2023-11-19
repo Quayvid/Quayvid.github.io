@@ -10,6 +10,13 @@ search_controller.stop
 search_controller.best
 search_controller.thinking
 
+function clear_pv_table() {
+    for (index = 0; index < PV_ENTRIES; index++) {
+        game_board.pv_table[index].move = NO_MOVE
+        game_board.pv_table[index].position_key = 0
+    }
+}
+
 function check_up() {
     if ( (Date.now() - search_controller.start) > search_controller.time) {
         search_controller.stop = true
@@ -29,6 +36,8 @@ function is_repetition() {
 
 function alpha_beta(alpha, beta, depth) {
 
+    search_controller.nodes++
+
     if (depth <= 0) {
         return evaluate_position()
     }
@@ -37,7 +46,7 @@ function alpha_beta(alpha, beta, depth) {
         check_up()
     }
 
-    search_controller.nodes++
+    
 
     if ( (is_repetition() || game_board.fifty_move >= 100) && game_board.play != 0) {
         return 0
@@ -45,6 +54,11 @@ function alpha_beta(alpha, beta, depth) {
 
     if (game_board.play > MAX_DEPTH - 1) {
         return evaluate_position()
+    }
+
+    var in_check = square_attacked(game_board.p_list[piece_index(kings[game_board.side], 0)], game_board.side^1)
+    if (in_check == true) {
+        depth++
     }
 
     var score = -INFINITE
@@ -84,23 +98,65 @@ function alpha_beta(alpha, beta, depth) {
 
         }
     }
-    if (alpha != old_alpha) {
 
+    if (legal == 0) {
+        if (in_check == true) {
+            return -MATE + game_board.play
+        } else {
+            return 0
+        }
+    }
+
+    if (alpha != old_alpha) {
+        store_pv_move(best_move)
     }
 
     return alpha
+}
+
+// Add in functions and variables later
+function clear_for_search() {
+    var index = 0
+    var index_2 = 0
+
+    for (index = 0; index < 14 * BOARD_SQ_NUM; ++index) {
+        game_board.search_history[index] = 0
+    }
+
+    for (index_2 = 0; index_2 < 3 * MAX_DEPTH; ++index_2) {
+        game_board.search_killers[index] = 0
+    }
+
+    clear_pv_table()
+    game_board.play = 0
+
+    search_controller.nodes = 0
+    search_controller.fh = 0
+    search_controller.fhf = 0
+    search_controller.start = $.now()
+    search_controller.stop = false
 }
 
 function search_position() {
     var best_move = NO_MOVE
     var best_score = -INFINITE
     var current_depth = 0
+    var line
 
-    for (current_depth = 1; current_depth <= search_controller.depth; ++current_depth) {
+    clear_for_search()
+
+    for (current_depth = 1; current_depth <= /*search_controller.depth*/ 5; ++current_depth) {
+        best_score = alpha_beta(-INFINITE, INFINITE, current_depth)
         if (search_controller.stop == true) {
             break
         }
+        best_move = probe_pv_table()
+        line = "D: " + current_depth + " Best: " + print_move(best_move) + " Score: " + best_score
+            + " Nodes: " + search_controller.nodes
+        console.log(line)
     }
+
+
     search_controller.best = best_move
     search_controller.thinking = false
 

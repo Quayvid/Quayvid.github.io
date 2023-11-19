@@ -18,6 +18,8 @@ game_board.move_scores = new Array(MAX_DEPTH * MAX_POSITION_MOVES)
 game_board.move_list_start = new Array(MAX_DEPTH)
 game_board.pv_table = []
 game_board.pv_array = new Array(MAX_DEPTH)
+game_board.search_history = new Array(14 * BOARD_SQ_NUM)
+game_board.search_killers = new Array(3 * MAX_DEPTH)
 
 function check_board() {
     var t_piece_num = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
