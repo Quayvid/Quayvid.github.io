@@ -1,3 +1,23 @@
+function move_exists(move) {
+
+    generate_moves()
+
+    var index
+    var move_found = NO_MOVE
+    for (index = game_board.move_list_start[game_board.play]; index < game_board.move_list_start[game_board.play + 1]; ++index) {
+        move_found = game_board.move_list[index]
+        if (make_move(move_found) == false) {
+            continue
+        }
+        take_move()
+        if (move == move_found) {
+            return true
+        }
+    }
+
+    return false
+}
+
 function MOVE(from, to, capture, promoted, flag) {
     return (from | (to << 7) | (capture << 14) | (promoted << 20) | flag)
 }

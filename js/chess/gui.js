@@ -2,8 +2,9 @@ $("#set_fen").on("click", function() {
     var fen_strings = $("#fen_in").val()
     parse_fen(fen_strings)
     print_board()
-    perft_test(5)
+    //perft_test(5)
     search_position()
+    //alpha_beta(-30000, 30000, 1)
 })
 
 // rnbqkb1r/pppp1ppp/8/4P3/6n1/7P/PPPNPPP1/R1BQKBNR b KQkq -

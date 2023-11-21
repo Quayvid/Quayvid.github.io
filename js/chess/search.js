@@ -11,6 +11,7 @@ search_controller.best
 search_controller.thinking
 
 function clear_pv_table() {
+
     for (index = 0; index < PV_ENTRIES; index++) {
         game_board.pv_table[index].move = NO_MOVE
         game_board.pv_table[index].position_key = 0
@@ -31,6 +32,7 @@ function is_repetition() {
             return true
         }
     }
+
     return false
 }
 
@@ -46,7 +48,6 @@ function alpha_beta(alpha, beta, depth) {
         check_up()
     }
 
-    
 
     if ( (is_repetition() || game_board.fifty_move >= 100) && game_board.play != 0) {
         return 0
@@ -78,9 +79,10 @@ function alpha_beta(alpha, beta, depth) {
             continue
         }
         legal++
-        score = -alpha_beta(-beta, -alpha, depth - 1)
+        score = -alpha_beta(-beta, -alpha, depth-1)
 
         take_move()
+
         if (search_controller.stop == true) {
             return 0
         }
@@ -97,7 +99,9 @@ function alpha_beta(alpha, beta, depth) {
             best_move = move
 
         }
+
     }
+
 
     if (legal == 0) {
         if (in_check == true) {
@@ -114,8 +118,8 @@ function alpha_beta(alpha, beta, depth) {
     return alpha
 }
 
-// Add in functions and variables later
 function clear_for_search() {
+
     var index = 0
     var index_2 = 0
 
@@ -129,19 +133,21 @@ function clear_for_search() {
 
     clear_pv_table()
     game_board.play = 0
-
     search_controller.nodes = 0
     search_controller.fh = 0
     search_controller.fhf = 0
-    search_controller.start = $.now()
+    search_controller.start = Date.now()
     search_controller.stop = false
 }
 
 function search_position() {
+
     var best_move = NO_MOVE
     var best_score = -INFINITE
     var current_depth = 0
     var line
+    var pv_num
+    var c
 
     clear_for_search()
 
@@ -153,6 +159,12 @@ function search_position() {
         best_move = probe_pv_table()
         line = "D: " + current_depth + " Best: " + print_move(best_move) + " Score: " + best_score
             + " Nodes: " + search_controller.nodes
+        
+        pv_num = get_pv_line(current_depth)
+        line += " pv:"
+        for (c = 0; c < pv_num; ++c) {
+            line += " " + print_move(game_board.pv_array[c])
+        }
         console.log(line)
     }
 
@@ -161,3 +173,21 @@ function search_position() {
     search_controller.thinking = false
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

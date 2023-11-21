@@ -46,70 +46,73 @@ var bishop_pair = 40
 
 
 function evaluate_position() {
+
     var score = game_board.material[COLORS.WHITE] - game_board.material[COLORS.BLACK]
 
     var piece
     var square
-    var piece_num
+    var piece_num_var
 
     piece = PIECES.wP
-    for (piece_num = 0; piece_num < game_board.piece_num[piece]; ++piece_num) {
-        square = game_board.p_list[piece_index(piece, piece_num)]
+    for (piece_num_var = 0; piece_num_var < game_board.piece_num[piece]; ++piece_num_var) {
+        square = game_board.p_list[piece_index(piece, piece_num_var)]
         score += pawn_table[sq_64(square)]
     }
 
+
     piece = PIECES.bP
-    for (piece_num = 0; piece_num < game_board.piece_num[piece]; ++piece_num) {
-        square = game_board.p_list[piece_index(piece, piece_num)]
-        score -= pawn_table[mirror_64_func(square)]
+    for (piece_num_var = 0; piece_num_var < game_board.piece_num[piece]; ++piece_num_var) {
+        square = game_board.p_list[piece_index(piece, piece_num_var)]
+        score -= pawn_table[mirror_64_func(sq_64(square))]
     }
 
+
     piece = PIECES.wN
-    for (piece_num = 0; piece_num < game_board.piece_num[piece]; ++piece_num) {
-        square = game_board.p_list[piece_index(piece, piece_num)]
+    for (piece_num_var = 0; piece_num_var < game_board.piece_num[piece]; ++piece_num_var) {
+        square = game_board.p_list[piece_index(piece, piece_num_var)]
         score += knight_table[sq_64(square)]
     }
 
     piece = PIECES.bN
-    for (piece_num = 0; piece_num < game_board.piece_num[piece]; ++piece_num) {
-        square = game_board.p_list[piece_index(piece, piece_num)]
-        score -= knight_table[mirror_64_func(square)]
+    for (piece_num_var = 0; piece_num_var < game_board.piece_num[piece]; ++piece_num_var) {
+        square = game_board.p_list[piece_index(piece, piece_num_var)]
+        score -= knight_table[mirror_64_func(sq_64(square))]
     }
 
     piece = PIECES.wB
-    for (piece_num = 0; piece_num < game_board.piece_num[piece]; ++piece_num) {
-        square = game_board.p_list[piece_index(piece, piece_num)]
+    for (piece_num_var = 0; piece_num_var < game_board.piece_num[piece]; ++piece_num_var) {
+        square = game_board.p_list[piece_index(piece, piece_num_var)]
         score += bishop_table[sq_64(square)]
     }
 
     piece = PIECES.bB
-    for (piece_num = 0; piece_num < game_board.piece_num[piece]; ++piece_num) {
-        square = game_board.p_list[piece_index(piece, piece_num)]
-        score -= bishop_table[mirror_64_func(square)]
+    for (piece_num_var = 0; piece_num_var < game_board.piece_num[piece]; ++piece_num_var) {
+        square = game_board.p_list[piece_index(piece, piece_num_var)]
+        score -= bishop_table[mirror_64_func(sq_64(square))]
     }
 
     piece = PIECES.wR
-    for (piece_num = 0; piece_num < game_board.piece_num[piece]; ++piece_num) {
-        square = game_board.p_list[piece_index(piece, piece_num)]
+    for (piece_num_var = 0; piece_num_var < game_board.piece_num[piece]; ++piece_num_var) {
+        square = game_board.p_list[piece_index(piece, piece_num_var)]
         score += rook_table[sq_64(square)]
     }
 
     piece = PIECES.bR
-    for (piece_num = 0; piece_num < game_board.piece_num[piece]; ++piece_num) {
-        square = game_board.p_list[piece_index(piece, piece_num)]
-        score -= rook_table[mirror_64_func(square)]
+    for (piece_num_var = 0; piece_num_var < game_board.piece_num[piece]; ++piece_num_var) {
+        square = game_board.p_list[piece_index(piece, piece_num_var)]
+        score -= rook_table[mirror_64_func(sq_64(square))]
     }
 
     piece = PIECES.wQ
-    for (piece_num = 0; piece_num < game_board.piece_num[piece]; ++piece_num) {
-        square = game_board.p_list[piece_index(piece, piece_num)]
+    for (piece_num_var = 0; piece_num_var < game_board.piece_num[piece]; ++piece_num_var) {
+        square = game_board.p_list[piece_index(piece, piece_num_var)]
         score += rook_table[sq_64(square)]
     }
 
     piece = PIECES.bQ
-    for (piece_num = 0; piece_num < game_board.piece_num[piece]; ++piece_num) {
-        square = game_board.p_list[piece_index(piece, piece_num)]
-        score -= rook_table[mirror_64_func(square)]
+    for (piece_num_var = 0; piece_num_var < game_board.piece_num[piece]; ++piece_num_var) {
+        square = game_board.p_list[piece_index(piece, piece_num_var)]
+        score -= rook_table[mirror_64_func(sq_64(square))]
     }
 
     if (game_board.piece_num[PIECES.wB] >= 2) {
