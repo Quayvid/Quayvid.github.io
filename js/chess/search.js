@@ -36,17 +36,85 @@ function is_repetition() {
     return false
 }
 
-function alpha_beta(alpha, beta, depth) {
+function quiescence(alpha, beta) {
+    if ( (search_controller.nodes & 2047) == 0) {
+        check_up()
+    }
 
     search_controller.nodes++
 
-    if (depth <= 0) {
+    if ( (is_repetition() || game_board.fifty_move >= 100) && game_board.play != 0) {
+        return 0
+    }
+
+    if (game_board.play > MAX_DEPTH - 1) {
         return evaluate_position()
+    }
+
+    var score = evaluate_position()
+
+    if (score >= beta) {
+        return beta
+    }
+
+    if (score > alpha) {
+        alpha = score
+    }
+
+    generate_captures_2()
+
+    var move_num = 0
+    var legal = 0
+    var old_alpha = alpha
+    var best_move = NO_MOVE
+    var move = NO_MOVE
+
+    for (move_num = game_board.move_list_start[game_board.play]; move_num < game_board.move_list_start[game_board.play + 1]; ++move_num) {
+
+        move = game_board.move_list[move_num]
+        if (make_move(move) == false) {
+            continue
+        }
+        legal++
+        score = -quiescence(-beta, -alpha)
+
+        take_move()
+
+        if (search_controller.stop == true) {
+            return 0
+        }
+
+        if (score > alpha) {
+            if (score >= beta) {
+                if (legal == 1) {
+                    search_controller.fhf++
+                }
+                search_controller.fh++
+                return beta
+            }
+            alpha = score
+            best_move = move
+        }
+    }
+
+    if (alpha != old_alpha) {
+        store_pv_move(best_move)
+    }
+
+    return alpha
+}
+
+function alpha_beta(alpha, beta, depth) {
+
+    if (depth <= 0) {
+        return quiescence(alpha, beta)
     }
 
     if ( (search_controller.nodes & 2047) == 0) {
         check_up()
     }
+
+    search_controller.nodes++
 
 
     if ( (is_repetition() || game_board.fifty_move >= 100) && game_board.play != 0) {
@@ -152,10 +220,13 @@ function search_position() {
     clear_for_search()
 
     for (current_depth = 1; current_depth <= /*search_controller.depth*/ 5; ++current_depth) {
+
         best_score = alpha_beta(-INFINITE, INFINITE, current_depth)
+
         if (search_controller.stop == true) {
             break
         }
+
         best_move = probe_pv_table()
         line = "D: " + current_depth + " Best: " + print_move(best_move) + " Score: " + best_score
             + " Nodes: " + search_controller.nodes

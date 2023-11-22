@@ -170,7 +170,7 @@ function update_lists_material() {
         }
     }
 
-    print_piece_lists()
+    //print_piece_lists()
 }
 
 function reset_board() {
@@ -283,7 +283,7 @@ function parse_fen(fen) {
 
     game_board.position_key = generate_pos_key()
     update_lists_material()
-    print_square_attacked()
+    //print_square_attacked()
     //square_attacked(21, 0)
 }
 
