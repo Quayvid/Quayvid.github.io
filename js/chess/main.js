@@ -92,4 +92,5 @@ function init() {
     init_hash_keys()
     init_sq_120_to_64()
     init_board_variables()
+    init_mvv_lva()
 }

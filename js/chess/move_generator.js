@@ -1,3 +1,19 @@
+var mvv_lva_value = [0, 100, 200, 300, 400, 500, 600, 100, 200, 300, 400, 500, 600]
+var mvv_lva_scores = new Array(14 * 14)
+
+function init_mvv_lva() {
+    var attacker
+    var victim
+
+    for (attacker = PIECES.wP; attacker <= PIECES.bK; ++attacker) {
+        for (victim = PIECES.wP; victim <= PIECES.bK; ++victim) {
+            mvv_lva_scores[victim * 14 + attacker] = mvv_lva_value[victim] + 6 - (mvv_lva_value[attacker] / 100)
+        }
+    }
+
+
+}
+
 function move_exists(move) {
 
     generate_moves()
@@ -24,7 +40,8 @@ function MOVE(from, to, capture, promoted, flag) {
 
 function add_capture_move(move) {
     game_board.move_list[game_board.move_list_start[game_board.play + 1]] = move
-    game_board.move_scores[game_board.move_list_start[game_board.play + 1]++] = 0
+    game_board.move_scores[game_board.move_list_start[game_board.play + 1]++] = 
+        mvv_lva_scores[captured(move) * 14 + game_board.pieces[from_square(move)]] + 1000000
 }
 
 function add_quiet_move(move) {
@@ -34,7 +51,7 @@ function add_quiet_move(move) {
 
 function add_en_passant_move(move) {
     game_board.move_list[game_board.move_list_start[game_board.play + 1]] = move
-    game_board.move_scores[game_board.move_list_start[game_board.play + 1]++] = 0
+    game_board.move_scores[game_board.move_list_start[game_board.play + 1]++] = 105 + 1000000
 }
 
 function add_white_pawn_capture_move(from, to , cap) {
@@ -246,30 +263,6 @@ function generate_moves() {
 }
 
 function generate_captures() {
-    game_board.move_list_start[game_board.play + 1] = game_board.move_list_start[game_board.play]
-
-    var piece_type
-    var piece_num_var
-    var square
-    var piece_index
-    var piece
-    var t_square
-    var direction
-
-    if (game_board.side == COLORS.WHITE) {
-        piece_type = PIECES.wP
-
-        for (piece_num_var = 0; piece_num_var < game_board.piece_num[piece_type]; ++piece_num_var) {
-            square = game_board.p_list[piece_index(piece_type, piece_num_var)]
-
-            if (square_off_board(square + 9) == false && piece_col[game_board.pieces[square + 9]] == COLORS.BLACK) {
-                add_white_pawn_capture_move
-            }
-        }
-    }
-}
-
-function generate_captures_2() {
     game_board.move_list_start[game_board.play + 1] = game_board.move_list_start[game_board.play]
 
     var piece_type

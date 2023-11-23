@@ -1,6 +1,6 @@
 $("#set_fen").on("click", function() {
     var fen_strings = $("#fen_in").val()
-    parse_fen(START_FEN)
+    parse_fen(fen_strings)
     print_board()
     search_position()
     //alpha_beta(-30000, 30000, 1)

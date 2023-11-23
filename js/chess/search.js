@@ -10,6 +10,32 @@ search_controller.stop
 search_controller.best
 search_controller.thinking
 
+function pick_next_move(move_number) {
+
+    var index = 0
+    var best_score = -1
+    var best_num = 0
+
+    for (index = move_number; index < game_board.move_list_start[game_board.play + 1]; ++index) {
+        if (game_board.move_scores[index] > best_score) {
+            best_score = game_board.move_scores[index]
+            best_num = index
+        }
+    }
+
+    if (best_num != move_number) {
+        var temp = 0
+        temp = game_board.move_scores[move_number]
+        game_board.move_scores[move_number] = game_board.move_scores[best_num]
+        game_board.move_scores[best_num] = temp
+
+        temp = game_board.move_list[move_number]
+        game_board.move_list[move_number] = game_board.move_list[best_num]
+        game_board.move_list[best_num] = temp
+    }
+
+}
+
 function clear_pv_table() {
 
     for (index = 0; index < PV_ENTRIES; index++) {
@@ -61,7 +87,7 @@ function quiescence(alpha, beta) {
         alpha = score
     }
 
-    generate_captures_2()
+    generate_captures()
 
     var move_num = 0
     var legal = 0
@@ -70,6 +96,8 @@ function quiescence(alpha, beta) {
     var move = NO_MOVE
 
     for (move_num = game_board.move_list_start[game_board.play]; move_num < game_board.move_list_start[game_board.play + 1]; ++move_num) {
+
+        pick_next_move(move_num)
 
         move = game_board.move_list[move_num]
         if (make_move(move) == false) {
@@ -141,6 +169,8 @@ function alpha_beta(alpha, beta, depth) {
     var move = NO_MOVE
 
     for (move_num = game_board.move_list_start[game_board.play]; move_num < game_board.move_list_start[game_board.play + 1]; ++move_num) {
+
+        pick_next_move(move_num)
 
         move = game_board.move_list[move_num]
         if (make_move(move) == false) {
@@ -235,6 +265,9 @@ function search_position() {
         line += " pv:"
         for (c = 0; c < pv_num; ++c) {
             line += " " + print_move(game_board.pv_array[c])
+        }
+        if (current_depth != 1) {
+            line += (" Ordering: " + ((search_controller.fhf / search_controller.fh) * 100).toFixed(2) + "%")
         }
         console.log(line)
     }
