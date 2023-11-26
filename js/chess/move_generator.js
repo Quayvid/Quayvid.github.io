@@ -46,7 +46,18 @@ function add_capture_move(move) {
 
 function add_quiet_move(move) {
     game_board.move_list[game_board.move_list_start[game_board.play + 1]] = move
-    game_board.move_scores[game_board.move_list_start[game_board.play + 1]++] = 0
+    game_board.move_scores[game_board.move_list_start[game_board.play + 1]] = 0
+
+    if (move == game_board.search_killers[game_board.play]) {
+        game_board.move_scores[game_board.move_list_start[game_board.play + 1]] = 900000
+    } else if (move == game_board.search_killers[game_board.play + MAX_DEPTH]) {
+        game_board.move_scores[game_board.move_list_start[game_board.play + 1]] = 800000
+    } else {
+        game_board.move_scores[game_board.move_list_start[game_board.play + 1]] = 
+            game_board.search_history[game_board.pieces[from_square(move)] * BOARD_SQ_NUM + to_square(move)]
+    }
+
+    game_board.move_list_start[game_board.play + 1]++
 }
 
 function add_en_passant_move(move) {
@@ -376,3 +387,19 @@ function generate_captures() {
         piece_test = loop_slide_piece[pce_index++]
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

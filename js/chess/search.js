@@ -14,7 +14,7 @@ function pick_next_move(move_number) {
 
     var index = 0
     var best_score = -1
-    var best_num = 0
+    var best_num = move_number
 
     for (index = move_number; index < game_board.move_list_start[game_board.play + 1]; ++index) {
         if (game_board.move_scores[index] > best_score) {
@@ -168,6 +168,16 @@ function alpha_beta(alpha, beta, depth) {
     var best_move = NO_MOVE
     var move = NO_MOVE
 
+    var pv_move = probe_pv_table()
+    if (pv_move != NO_MOVE) {
+        for (move_num = game_board.move_list_start[game_board.play]; move_num < game_board.move_list_start[game_board.play + 1]; ++move_num) {
+            if (game_board.move_list[move_num] == pv_move) {
+                game_board.move_scores[move_num] = 2000000
+                break
+            }
+        }
+    }
+
     for (move_num = game_board.move_list_start[game_board.play]; move_num < game_board.move_list_start[game_board.play + 1]; ++move_num) {
 
         pick_next_move(move_num)
@@ -191,13 +201,20 @@ function alpha_beta(alpha, beta, depth) {
                     search_controller.fhf++
                 }
                 search_controller.fh++
+                if ( (move & M_FLAG_CAP) == 0) {
+                    game_board.search_killers[MAX_DEPTH + game_board.play] = game_board.search_killers[game_board.play]
+                    game_board.search_killers[game_board.play] = move
+                }
                 return beta
             }
+
+            if ( (move & M_FLAG_CAP) == 0) {
+                game_board.search_history[game_board.pieces[from_square(move)] * BOARD_SQ_NUM + to_square(move)] += depth * depth
+            }
+
             alpha = score
             best_move = move
-
         }
-
     }
 
 
@@ -226,7 +243,7 @@ function clear_for_search() {
     }
 
     for (index_2 = 0; index_2 < 3 * MAX_DEPTH; ++index_2) {
-        game_board.search_killers[index] = 0
+        game_board.search_killers[index_2] = 0
     }
 
     clear_pv_table()
@@ -249,7 +266,7 @@ function search_position() {
 
     clear_for_search()
 
-    for (current_depth = 1; current_depth <= /*search_controller.depth*/ 5; ++current_depth) {
+    for (current_depth = 1; current_depth <= /*search_controller.depth*/ 6; ++current_depth) {
 
         best_score = alpha_beta(-INFINITE, INFINITE, current_depth)
 

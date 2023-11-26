@@ -8,6 +8,18 @@
 	<link href="css/attributes.css" type="text/css" rel="stylesheet">
     <link href="css/chess.css" type="text/css" rel="stylesheet">
 
+	<script src = "js/chess/jquery-3.7.1.min.js"></script>
+	<script src = "js/chess/defs.js"></script>
+	<script src = "js/chess/io.js"></script>
+	<script src = "js/chess/board.js"></script>
+	<script src = "js/chess/move_generator.js"></script>
+	<script src = "js/chess/make_move.js"></script>
+	<script src = "js/chess/evaluate.js"></script>
+	<script src = "js/chess/pv_table.js"></script>
+	<script src = "js/chess/search.js"></script>
+	<script src = "js/chess/perft.js"></script>
+	<script src = "js/chess/main.js"></script>
+
 	<!--script src = "text/javascript">if (!window.console) console = {log: function() {}};</script-->
 
 
@@ -47,6 +59,32 @@
 		Fen:<br>
 		<input type="text" id="fen_in">
 		<button type="submit" id="set_fen">Set position</button>
+
+		<script src = "js/chess/gui.js"></script>
+	</div>
+
+
+	<div id = "board">
+
+	</div>
+
+	<div id = "engine_output"> Thinking Time: <br>
+		<select id = "think_time_choice">
+			<option value = "1">1s</option>
+			<option value = "2">2s</option>
+			<option value = "4">4s</option>
+			<option value = "6">6s</option>
+			<option value = "8">8s</option>
+			<option value = "10">10s</option>
+		</select><br>
+
+		<span id = "best_out">Best move:</span><br>
+		<span id = "depth_out">Depth:</span><br>
+		<span id = "score_out">Score:</span><br>
+		<span id = "nodes_out">Nodes:</span><br>
+		<span id = "ordering_out">Ordering:</span><br>
+		<span id = "time_out">Time:</span><br>
+
 	</div>
 
 
@@ -54,18 +92,7 @@
 	<div class = "contact">
 		<p>Contact Info<br>dkim64100@gmail.com | 250-640-0521</p>
 	</div>
-	<script src = "js/chess/jquery-3.7.1.min.js"></script>
-	<script src = "js/chess/defs.js"></script>
-	<script src = "js/chess/io.js"></script>
-	<script src = "js/chess/board.js"></script>
-	<script src = "js/chess/move_generator.js"></script>
-	<script src = "js/chess/make_move.js"></script>
-	<script src = "js/chess/evaluate.js"></script>
-	<script src = "js/chess/pv_table.js"></script>
-	<script src = "js/chess/search.js"></script>
-	<script src = "js/chess/perft.js"></script>
-	<script src = "js/chess/gui.js"></script>
-	<script src = "js/chess/main.js"></script>
+
 
 
 </body>

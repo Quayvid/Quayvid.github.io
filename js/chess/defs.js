@@ -47,6 +47,8 @@ var files_board = new Array(BOARD_SQ_NUM)
 var ranks_board = new Array(BOARD_SQ_NUM)
 
 var START_FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
+//rnb1k2r/pp2qppp/3p1n2/2pp2B1/1bP5/2N1P3/PP2NPPP/R2QKB1R w KQkq -
+//1br3k1/p4p2/2p1r3/3p1b2/3Bn1p1/1P2P1Pq/P3Q1BP/2R1NRK1 b - -
 
 var piece_char = ".PNBRQKpnbrqk"
 var side_char = "wb-"
