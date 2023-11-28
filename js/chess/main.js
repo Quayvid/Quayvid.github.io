@@ -86,6 +86,32 @@ function init_board_variables() {
     }
 }
 
+function init_board_squares() {
+    var light = 1
+    var rank_name
+    var file_name
+    var div_string
+    var rank_iter
+    var file_iter
+    var light_string
+
+    for (rank_iter = RANKS.RANK_8; rank_iter >= RANKS.RANK_1; rank_iter--) {
+        light ^= 1
+        rank_name = "rank_" + (rank_iter + 1)
+        for (file_iter = FILES.FILE_A; file_iter <= FILES.FILE_H; file_iter++) {
+            file_name = "file_" + (file_iter + 1)
+            if (light == 0) { 
+                light_string = "light"
+            } else {
+                light_string = "dark"
+            }
+            light ^= 1
+            div_string = "<div class =\"square " + rank_name + " " + file_name + " " + light_string + "\"/>";
+            $("#board").append(div_string)
+        }
+    }
+}
+
 function init() {
     console.log("init() called")
     init_files_ranks_board()
@@ -93,4 +119,30 @@ function init() {
     init_sq_120_to_64()
     init_board_variables()
     init_mvv_lva()
+    init_board_squares()
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

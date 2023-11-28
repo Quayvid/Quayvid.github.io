@@ -22,7 +22,6 @@
     left: 50px;
     width: 480px;
     height: 480px;
-
     border-style: solid;
     border-width: 2px;
     
@@ -33,3 +32,39 @@
     left: 600px;
     top: 350px;
 }
+
+.square {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+}
+
+.dark {
+    background-color: #5fbcd3;
+}
+
+.light {
+    background-color: #afdde9;
+}
+
+.square_selected {
+    background-color: #216778;
+}
+
+.rank_1 { top: 420px; }
+.rank_2 { top: 360px; }
+.rank_3 { top: 300px; }
+.rank_4 { top: 240px; }
+.rank_5 { top: 180px; }
+.rank_6 { top: 120px; }
+.rank_7 { top: 60px; }
+.rank_8 { top: 0px; }
+
+.file_1 { left: 0px; }
+.file_2 { left: 60px; }
+.file_3 { left: 120px; }
+.file_4 { left: 180px; }
+.file_5 { left: 240px; }
+.file_6 { left: 300px; }
+.file_7 { left: 360px; }
+.file_8 { left: 420px; }
