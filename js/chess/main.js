@@ -2,8 +2,10 @@ $(function() {
     init()
     console.log("Main Init called")
 
-    parse_fen(START_FEN)
-    print_board()
+    new_game(START_FEN)
+
+    //parse_fen(START_FEN)
+    //print_board()
 });
 
 function init_files_ranks_board() {

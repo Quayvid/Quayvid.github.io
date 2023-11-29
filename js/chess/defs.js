@@ -117,6 +117,16 @@ var mirror_64 = [
     0, 1, 2, 3, 4, 5, 6, 7
 ]
 
+var game_controller = {}
+game_controller.engine_sode = COLORS.BOTH
+game_controller.player_side = COLORS.BOTH
+game_controller.game_over = false
+
+var user_move = {}
+user_move.from = SQUARES.NO_SQ
+user_move.to = SQUARES.NO_SQ
+
+
 function FR2SQ(f, r) {
     return ((21 + (f)) + ((r) * 10))
 }

@@ -37,6 +37,7 @@
     position: absolute;
     width: 60px;
     height: 60px;
+
 }
 
 .dark {
@@ -68,3 +69,7 @@
 .file_6 { left: 300px; }
 .file_7 { left: 360px; }
 .file_8 { left: 420px; }
+
+.piece {
+    position: absolute;
+}
