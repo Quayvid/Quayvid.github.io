@@ -1,3 +1,8 @@
+.cited_link {
+    padding-left: 50px;
+    color: #4e484a;
+}
+
 .dropdown {
     background-color: #787073;
 }
@@ -14,7 +19,9 @@
     padding-top: 100px;
 }
 
-
+#cited_link {
+    color: green;
+}
 
 #board {
     position: relative;

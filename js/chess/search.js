@@ -259,6 +259,7 @@ function search_position() {
 
     var best_move = NO_MOVE
     var best_score = -INFINITE
+    var score = -INFINITE
     var current_depth = 0
     var line
     var pv_num
@@ -266,14 +267,15 @@ function search_position() {
 
     clear_for_search()
 
-    for (current_depth = 1; current_depth <= /*search_controller.depth*/ 6; ++current_depth) {
+    for (current_depth = 1; current_depth <= search_controller.depth; ++current_depth) {
 
-        best_score = alpha_beta(-INFINITE, INFINITE, current_depth)
+        score = alpha_beta(-INFINITE, INFINITE, current_depth)
 
         if (search_controller.stop == true) {
             break
         }
 
+        best_score = score
         best_move = probe_pv_table()
         line = "D: " + current_depth + " Best: " + print_move(best_move) + " Score: " + best_score
             + " Nodes: " + search_controller.nodes
@@ -292,7 +294,22 @@ function search_position() {
 
     search_controller.best = best_move
     search_controller.thinking = false
+    update_DOM_stats(best_score, current_depth)
 
+}
+
+function update_DOM_stats(dom_score, dom_depth) {
+    var score_text = "Score: " + (dom_score / 100).toFixed(2)
+    if (Math.abs(dom_score) > MATE - MAX_DEPTH) {
+        score_text = "Score: Mate In " + (MATE - (Math.abs(dom_score)) - 1) + " moves"
+    }
+
+    $("#ordering_out").text("Ordering: " + ((search_controller.fhf / search_controller.fh) * 100).toFixed(2) + "%")
+    $("#depth_out").text("Depth: " + dom_depth)
+    $("#score_out").text(score_text)
+    $("#nodes_out").text("Nodes: " + search_controller.nodes)
+    $("#time_out").text("Time: " + (($.now() - search_controller.start) / 1000).toFixed(1) + "s")
+    $("#best_out").text("Best Move: " + print_move(search_controller.best))
 }
 
 

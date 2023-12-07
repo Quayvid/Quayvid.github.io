@@ -8,17 +8,7 @@
 	<link href="css/attributes.css" type="text/css" rel="stylesheet">
     <link href="css/chess.css" type="text/css" rel="stylesheet">
 
-	<script src = "js/chess/jquery-3.7.1.min.js"></script>
-	<script src = "js/chess/defs.js"></script>
-	<script src = "js/chess/io.js"></script>
-	<script src = "js/chess/board.js"></script>
-	<script src = "js/chess/move_generator.js"></script>
-	<script src = "js/chess/make_move.js"></script>
-	<script src = "js/chess/evaluate.js"></script>
-	<script src = "js/chess/pv_table.js"></script>
-	<script src = "js/chess/search.js"></script>
-	<script src = "js/chess/perft.js"></script>
-	<script src = "js/chess/main.js"></script>
+
 
 	<!--script src = "text/javascript">if (!window.console) console = {log: function() {}};</script-->
 
@@ -54,15 +44,18 @@
 		<li><a href="https://www.linkedin.com/in/david-kim-768864282/"><img src = "images/linkedin.png" alt = "linkedin" class = "linkedin"></a></li>
 	</ul>
 
+	<div id = "description">
+		<a class = "cited_link" href = "https://www.youtube.com/playlist?list=PLZ1QII7yudbe4gz2gh9BCI6VDA-xafLog">A chess engine based on Bluefever Software's JavaScript Chess Engine tutorial series.</a>
+	</div>
 
 	<div id="fen_in_div">
 		Fen:<br>
 		<input type="text" id="fen_in">
 		<button type="submit" id="set_fen">Set position</button>
 
-		<script src = "js/chess/gui.js"></script>
+		
 	</div>
-
+	
 
 	<div id = "board">
 
@@ -87,7 +80,7 @@
 
 		<button type = "button" id = "search_button">Move Now</button><br>
 		<button type = "button" id = "new_game_button">New Game</button><br>
-		<button type = "button" id = "flip_button">Flip Board</button><br>
+		<!--button type = "button" id = "flip_button">Flip Board</button><br-->
 		<button type = "button" id = "take_button">Take Back</button><br>
 
 		<span id = "game_status"></span>
@@ -102,6 +95,19 @@
 
 
 
+
+	<script src = "js/chess/jquery-3.7.1.min.js"></script>
+	<script src = "js/chess/defs.js"></script>
+	<script src = "js/chess/io.js"></script>
+	<script src = "js/chess/board.js"></script>
+	<script src = "js/chess/move_generator.js"></script>
+	<script src = "js/chess/make_move.js"></script>
+	<script src = "js/chess/evaluate.js"></script>
+	<script src = "js/chess/pv_table.js"></script>
+	<script src = "js/chess/search.js"></script>
+	<script src = "js/chess/perft.js"></script>
+	<script src = "js/chess/gui.js"></script>
+	<script src = "js/chess/main.js"></script>
 </body>
 
 </html>
